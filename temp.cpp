@@ -44,8 +44,10 @@ shared_ptr<node> operator*(shared_ptr<node> self, shared_ptr<node> other)
     auto out = make_shared<node>(self->data*other->data,"*") ;
     out->_backward = [self,other,out]()
     {
-        self.grad += 
-    }
+        self->grad += other->data*out->grad ;
+        other->grad += self->data*out->grad ;
+    };
+    return out ;
 }
 
 int main()
