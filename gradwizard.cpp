@@ -91,6 +91,10 @@ int main()
     auto c = a*b ;
     auto d = make_shared<node>(5.0) ;
     auto e = d/c ;
-    e->backward() ;
-    cout << a->getgrad() << " " << b->getgrad() << " " << c->getgrad() << " " << d->getgrad()<< endl;
+    auto f {make_shared<node>(6.0)} ;
+    auto g {make_shared<node>(8.0)} ;
+    auto h = e + f*g ;
+    h->backward() ;
+    cout << a->getgrad() << " " << b->getgrad() << " " << c->getgrad() << " " << d->getgrad() << " " ;
+    cout << a->getgrad() << " " << b->getgrad() << " " << c->getgrad() << endl;
 }
