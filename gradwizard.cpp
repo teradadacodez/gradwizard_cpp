@@ -23,6 +23,7 @@ class node : public enable_shared_from_this<node>
     double getgrad() const {return (double)grad ;}
     string getop() const {return op ;}
     string getlabel() const {return label ;}
+    const vector<shared_ptr<node>>& getparents() const {return parents ;}
 
     void show()
     {
@@ -126,6 +127,7 @@ shared_ptr<node> operator/(shared_ptr<node> self, shared_ptr<node> other)
     };
     return out ;
 }
+
 int main()
 {
     auto a {make_shared<node>(2.0,"a")}, b {make_shared<node>(3.0,"b")} ;
@@ -142,6 +144,9 @@ int main()
     auto j = h/(i->power(2.0)) ;
     j->label = "j" ;
     auto k = j->tanh() ;
+    k->label = "k" ;
+    auto l = k->power(2) ;
+    l->label = "l" ;
     k->backward() ;
     a->show() ;
     b->show() ;
@@ -154,4 +159,5 @@ int main()
     i->show() ;
     j->show() ;
     k->show() ;
+    l->show() ;
 }
