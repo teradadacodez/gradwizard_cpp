@@ -96,5 +96,5 @@ int main()
     auto h = e + f*g ;
     h->backward() ;
     cout << a->getgrad() << " " << b->getgrad() << " " << c->getgrad() << " " << d->getgrad() << " " ;
-    cout << a->getgrad() << " " << b->getgrad() << " " << c->getgrad() << endl;
+    cout << e->getgrad() << " " << f->getgrad() << " " << g->getgrad() << endl;
 }
