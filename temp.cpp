@@ -1,81 +1,58 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-class node : public enable_shared_from_this<node>
+class node
 {
     double data ; 
     double grad ;
     string op ;
     function<void()> _backward ;
-    vector<shared_ptr<node>> parents ;
-
-    public : 
-    node(double d, string o = "") : data(d), grad(0), op(o), _backward([](){}) {}
-    double getdata() const {return (double)data ;}
-    double getgrad() const {return (double)grad ;}
-
-    friend shared_ptr<node> operator+(shared_ptr<node> self, shared_ptr<node> other) ;
-    friend shared_ptr<node> operator*(shared_ptr<node> self, shared_ptr<node> other) ;
-    friend shared_ptr<node> operator-(shared_ptr<node> self, shared_ptr<node> other) ;
-    friend shared_ptr<node> operator/(shared_ptr<node> self, shared_ptr<node> other) ;
-
-    void backward()
-    {
-        grad = 1.0 ;
-        _backward() ;
-    }
+    set<node> parents
     
+    public : 
+    node(int d, int g = 0, string l = "") : data(d), grad(g), op(l)
+    {
+        _backward = [](){} ;
+        cout << "node constructor" << endl;
+    }
+    ~node() {cout << "node destructor" << endl;}
+    void show() {cout << "(data,grad,op) : (" << data << ", " << grad << ", " << op << ")" << endl;}
+    node operator+(node& other)
+    {
+        node out = node(data+other.data,0,"+") ;
+        _backward = [this,other,out]()
+        {
+            this->grad += 1*out.grad ;
+            other.grad += 1*out.grad ;
+        }
+        return out ;
+    }
+    node operator-(node& other)
+    {
+        
+        return node(data-other.data,0,"-") ;
+    }
+    node operator*(node& other)
+    {
+        return node(data*other.data,0,"*") ;
+    }
+    node operator/(node& other)
+    {
+        return node(data/other.data,0,"/") ;
+    }
+    friend ostream& operator<<(ostream& COUT, const node& other) ;
 };
 
-shared_ptr<node> operator+(shared_ptr<node> self, shared_ptr<node> other)
+ostream& operator<<(ostream& COUT, const node& other)
 {
-    auto out = make_shared<node>(self->data+other->data,"+");
-    out->parents = {self,other} ;
-    out->_backward = [self,other,out]()
-    {
-        self->grad += out->grad ;
-        other->grad += out->grad ;
-    };
-    return out ;
-}
-shared_ptr<node> operator*(shared_ptr<node> self, shared_ptr<node> other)
-{
-    auto out = make_shared<node>(self->data*other->data,"*") ;
-    out->parents = {self,other} ;
-    out->_backward = [self,other,out]()
-    {
-        self->grad += other->data*out->grad ;
-        other->grad += self->data*out->grad ;
-    };
-    return out ;
-}
-shared_ptr<node> operator-(shared_ptr<node> self, shared_ptr<node> other)
-{
-    auto out = make_shared<node>(self->data-other->data,"-") ;
-    out->parents = {self,other} ;
-    out->_backward = [self,other,out]()
-    {
-        self->grad += out->grad ;
-        other->grad += -out->grad ;
-    };
-    return out ;
-}
-shared_ptr<node> operator/(shared_ptr<node> self, shared_ptr<node> other)
-{
-    auto out = make_shared<node>(self->data/other->data,"/") ;
-    out->parents = {self,other} ;
-    out->_backward = [self,other,out]()
-    {
-        self->grad += (1/other->data)*out->grad ;
-        other->grad += (-self->data/(other->data*other->data))*out->grad ;
-    };
-    return out ;
+    COUT << other.data << ", " << other.grad << ", " << other.op << endl;
+    return COUT ;
 }
 int main()
-{
-    auto a {make_shared<node>(2.0)}, b {make_shared<node>(3.0)} ;
-    auto c = a/b ;
-    c->backward() ;
-    cout << a->getgrad() << " " << b->getgrad() << endl;
-    cout << -2.0/9.0 << endl;
+{   
+    node a(10), b(20) ;
+    node c = a+b ;
+    c.show() ;
+    cout << c << endl;
+    cout << a+b << endl;  
 }
