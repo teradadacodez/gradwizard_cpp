@@ -128,6 +128,60 @@ shared_ptr<node> operator/(shared_ptr<node> self, shared_ptr<node> other)
     return out ;
 }
 
+void print_tree(
+    const shared_ptr<node>& v,
+    bool annot = false,
+    int depth = 0,
+    unordered_set<node*>* visited = nullptr
+)
+{
+    bool root_call = false;
+    if (!visited)
+    {
+        visited = new unordered_set<node*>();
+        root_call = true;
+    }
+
+    // indent with tabs
+    for (int i = 0; i < depth; ++i)
+        cout << '\t';
+
+    // display name: label > op > ?
+    string name;
+    if (!v->getlabel().empty())
+        name = v->getlabel();
+    else if (!v->getop().empty())
+        name = v->getop();
+    else
+        name = "?";
+
+    // print node (annotated or not)
+    cout << name;
+
+    if (annot)
+    {
+        cout << " [op:" << v->getop()
+             << ", data=" << v->getdata()
+             << ", grad=" << v->getgrad()
+             << "]";
+    }
+
+    cout << endl;
+
+    // avoid re-printing shared subgraphs
+    if (visited->count(v.get()))
+        return;
+
+    visited->insert(v.get());
+
+    // recurse on parents
+    for (const auto& p : v->getparents())
+        print_tree(p, annot, depth + 1,  visited);
+
+    if (root_call)
+        delete visited;
+}
+
 int main()
 {
     auto a {make_shared<node>(2.0,"a")}, b {make_shared<node>(3.0,"b")} ;
@@ -148,16 +202,17 @@ int main()
     auto l = k->power(2) ;
     l->label = "l" ;
     k->backward() ;
-    a->show() ;
-    b->show() ;
-    c->show() ;
-    d->show() ;
-    e->show() ;
-    f->show() ;
-    g->show() ;
-    h->show() ;
-    i->show() ;
-    j->show() ;
-    k->show() ;
-    l->show() ;
+    // a->show() ;
+    // b->show() ;
+    // c->show() ;
+    // d->show() ;
+    // e->show() ;
+    // f->show() ;
+    // g->show() ;
+    // h->show() ;
+    // i->show() ;
+    // j->show() ;
+    // k->show() ;
+    // l->show() ;
+    print_tree(k) ;
 }
