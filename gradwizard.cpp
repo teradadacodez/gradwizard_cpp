@@ -182,6 +182,35 @@ void print_tree(
         delete visited;
 }
 
+random_device rd ;
+mt19937 generator(rd()) ;
+uniform_real_distribution<double> distribution(0.0000001,1.0) ;
+
+class Neuron : public enable_shared_from_this<Neuron>
+{
+    vector<shared_ptr<node>> weights ;
+    shared_ptr<node> bias ;
+
+    public : 
+    Neuron(int nin)
+    {
+        for(int i {0} ; i<nin ; i++) weights.push_back(make_shared<node>(distribution(generator))) ;
+        bias = make_shared<node>(distribution(generator)) ;
+    }
+    shared_ptr<node> operator() (const vector<shared_ptr<node>>& x)
+    {
+        auto act {bias} ;
+        for(int i {0} ; i<weights.size() ; i++) act = act + weights[i]*x[i] ;
+        return act->tanh() ;
+    }
+    vector<shared_ptr<node>> parameters() const
+    {
+        vector<shared_ptr<node>> params = weights ;
+        params.push_back(bias) ;
+        return params ;
+    }  
+};
+
 int main()
 {
     auto a {make_shared<node>(2.0,"a")}, b {make_shared<node>(3.0,"b")} ;
