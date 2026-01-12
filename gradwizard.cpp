@@ -13,7 +13,7 @@ class node : public enable_shared_from_this<node>
 
     public : 
     string label ;
-    node(double d, string l = "", string o = "default") : data(d), grad(0), op(o), _backward([](){}), label(l)
+    node(double d, string l = "", string o = "default") : data(d), grad(0.0), op(o), _backward([](){}), label(l)
     {
         cout << "node constructor" << endl;
     }
@@ -142,11 +142,11 @@ void print_tree(
         root_call = true;
     }
 
-    // indent with tabs
+    // indentation
     for (int i = 0; i < depth; ++i)
         cout << '\t';
 
-    // display name: label > op > ?
+    // display name preference: label > op > ?
     string name;
     if (!v->getlabel().empty())
         name = v->getlabel();
@@ -168,13 +168,13 @@ void print_tree(
 
     cout << endl;
 
-    // avoid re-printing shared subgraphs
+    // avoid re-printing of shared subgraphs
     if (visited->count(v.get()))
         return;
 
     visited->insert(v.get());
 
-    // recurse on parents
+    // again recurse on it's parents
     for (const auto& p : v->getparents())
         print_tree(p, annot, depth + 1,  visited);
 
@@ -201,7 +201,9 @@ int main()
     k->label = "k" ;
     auto l = k->power(2) ;
     l->label = "l" ;
-    k->backward() ;
+    auto m = l + a/b ;
+    m->label = "m" ;
+    m->backward() ;
     // a->show() ;
     // b->show() ;
     // c->show() ;
@@ -214,5 +216,5 @@ int main()
     // j->show() ;
     // k->show() ;
     // l->show() ;
-    print_tree(k) ;
+    print_tree(m,true) ;
 }
