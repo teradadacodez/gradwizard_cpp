@@ -1,5 +1,4 @@
 #include "gradwizard.hpp"
-using namespace std;
 
 node::node(double d, string l, string o) : data(d), grad(0.0), op(0), _backward([](){}), label(l) {}
 
