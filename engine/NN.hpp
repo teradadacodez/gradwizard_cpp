@@ -20,5 +20,13 @@ class Layer
     vector<shared_ptr<node>> operator() (const vector<shared_ptr<node>>& x);
     vector<shared_ptr<node>> parameters() const ;
 };
+class MLP
+{
+    vector<Layer> mlp ;
+    public :
+    MLP(int nin, vector<int> nouts) ;
+    vector<shared_ptr<node>> operator() (vector<shared_ptr<node>> x) ;
+    vector<shared_ptr<node>> parameters() const ;
+};
 
 #endif

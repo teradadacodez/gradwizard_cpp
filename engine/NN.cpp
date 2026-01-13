@@ -37,4 +37,21 @@ vector<shared_ptr<node>> Layer::parameters() const
     }
     return params ;
 }
-
+MLP::MLP(int nin, vector<int> nouts)
+{
+    vector<int> sz ;
+    sz.push_back(nin) ;
+    for(auto i : nouts) sz.push_back(i) ;
+    for(int i {0} ; i<nouts.size() ; i++) mlp.push_back(Layer(sz[i],sz[i+1])) ;
+}
+vector<shared_ptr<node>> MLP::operator() (vector<shared_ptr<node>> x) 
+{
+    for(auto& l : mlp) x = l(x) ;
+    return x ;
+}
+vector<shared_ptr<node>> MLP::parameters() const
+{
+    vector<shared_ptr<node>> params ;
+    for(auto& layer : mlp) for(auto& par : layer.parameters()) params.push_back(par) ;
+    return params ;
+}
