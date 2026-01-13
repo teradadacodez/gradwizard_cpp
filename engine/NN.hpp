@@ -12,5 +12,13 @@ class Neuron
     shared_ptr<node> operator() (const vector<shared_ptr<node>>& x) ;
     vector<shared_ptr<node>> parameters() const ; 
 };
+class Layer
+{
+    vector<Neuron> layer ; // no vector<shared_ptr<Neuron>> because layer owns it's neurons !!
+    public : 
+    Layer(int nin, int nout);
+    vector<shared_ptr<node>> operator() (const vector<shared_ptr<node>>& x);
+    vector<shared_ptr<node>> parameters() const ;
+};
 
 #endif

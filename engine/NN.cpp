@@ -18,4 +18,23 @@ vector<shared_ptr<node>> Neuron::parameters() const
     params.push_back(bias) ;
     return params ;
 }
+Layer::Layer(int nin, int nout)
+{
+    for(int i {0} ; i<nout ; i++) layer.push_back(Neuron(nin)) ;
+}
+vector<shared_ptr<node>> Layer::operator() (const vector<shared_ptr<node>>& x)
+{
+    vector<shared_ptr<node>> output ;
+    for(auto& neu : this->layer) output.push_back(neu(x));
+    return output ;
+}
+vector<shared_ptr<node>> Layer::parameters() const
+{
+    vector<shared_ptr<node>> params ;
+    for(const auto& i : this->layer)
+    {
+        for(auto& j : i.parameters()) params.push_back(j) ;
+    }
+    return params ;
+}
 
