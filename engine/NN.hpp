@@ -2,7 +2,7 @@
 #define NN_HPP
 #include "gradwizard.hpp"
 
-class Neuron :
+class Neuron
 {
     vector<shared_ptr<node>> weights ;
     shared_ptr<node> bias ;
