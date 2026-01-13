@@ -210,7 +210,29 @@ class Neuron : public enable_shared_from_this<Neuron>
         return params ;
     }  
 };
-
+class Layer
+{
+    vector<Neuron> layer ; // no vector<shared_ptr<Neuron>> because layer owns it's neurons !!
+    public : 
+    Layer(int nin, int nout)
+    {
+        for(int i {0} ; i<nout ; i++) layer.push_back(Neuron(nin)) ;
+    }
+    vector<shared_ptr<node>> operator() (const vector<shared_ptr<node>>& x)
+    {
+        vector<shared_ptr<node>> output ;
+        for(auto& neu : this->layer) output.push_back(neu(x));
+        return output ;
+    }
+    vector<shared_ptr<node>> parameters() const{
+        vector<shared_ptr<node>> params ;
+        for(const auto& i : this->layer)
+        {
+            for(auto& j : i.parameters()) params.push_back(j) ;
+        }
+        return params ;
+    }
+};
 int main()
 {
     auto a {make_shared<node>(2.0,"a")}, b {make_shared<node>(3.0,"b")} ;
