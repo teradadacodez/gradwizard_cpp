@@ -102,3 +102,56 @@ shared_ptr<node> operator/(shared_ptr<node> self, shared_ptr<node> other)
     };
     return out ;
 }
+void print_tree(
+    const shared_ptr<node>& v,
+    bool annot = false,
+    int depth = 0,
+    unordered_set<node*>* visited = nullptr
+)
+{
+    bool root_call = false;
+    if (!visited)
+    {
+        visited = new unordered_set<node*>();
+        root_call = true;
+    }
+
+    // indentation
+    for (int i = 0; i < depth; ++i)
+        cout << '\t';
+
+    // display name preference: label > op > ?
+    string name;
+    if (!v->getlabel().empty())
+        name = v->getlabel();
+    else if (!v->getop().empty())
+        name = v->getop();
+    else
+        name = "?";
+
+    // print node (annotated or not)
+    cout << name;
+
+    if (annot)
+    {
+        cout << " [op:" << v->getop()
+             << ", data=" << v->getdata()
+             << ", grad=" << v->getgrad()
+             << "]";
+    }
+
+    cout << endl;
+
+    // avoid re-printing of shared subgraphs
+    if (visited->count(v.get()))
+        return;
+
+    visited->insert(v.get());
+
+    // again recurse on it's parents
+    for (const auto& p : v->getparents())
+        print_tree(p, annot, depth + 1,  visited);
+
+    if (root_call)
+        delete visited;
+}
