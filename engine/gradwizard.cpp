@@ -104,10 +104,9 @@ shared_ptr<node> operator/(shared_ptr<node> self, shared_ptr<node> other)
 }
 void print_tree(
     const shared_ptr<node>& v,
-    bool annot = false,
-    int depth = 0,
-    unordered_set<node*>* visited = nullptr
-)
+    bool annot,
+    int depth,
+    unordered_set<node*>* visited)
 {
     bool root_call = false;
     if (!visited)
