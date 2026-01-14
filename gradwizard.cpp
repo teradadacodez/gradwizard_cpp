@@ -15,7 +15,7 @@ class node : public enable_shared_from_this<node>
     string label ;
     node(double d, string l = "", string o = "default") : data(d), grad(0.0), op(o), _backward([](){}), label(l)
     {
-        cout << "node constructor" << endl;
+        // cout << "node constructor" << endl;
     }
     ~node() {cout << "node destructor" << endl;}
 
@@ -244,7 +244,7 @@ class MLP
         for(auto i : nouts) sz.push_back(i) ;
         for(int i {0} ; i<nouts.size() ; i++) mlp.push_back(Layer(sz[i],sz[i+1])) ;
     }
-    vector<shared_ptr<node>> operator() (vector<shared_ptr<node>> x) 
+    vector<shared_ptr<node>> operator() (vector<shared_ptr<node>>& x) 
     {
         for(auto& l : mlp) x = l(x) ;
         return x ;
@@ -258,37 +258,13 @@ class MLP
 };
 int main()
 {
-    auto a {make_shared<node>(2.0,"a")}, b {make_shared<node>(3.0,"b")} ;
-    auto c = a*b ;
-    c->label = "c" ;
-    auto d = make_shared<node>(5.0,"d") ;
-    auto e = d/c ;
-    e->label = "e" ;
-    auto f {make_shared<node>(6.0,"f")} ;
-    auto g {make_shared<node>(8.0,"g")} ;
-    auto h = e + f*g ;
-    h->label = "h" ;
-    auto i {make_shared<node>(10.0,"i")} ;
-    auto j = h/(i->power(2.0)) ;
-    j->label = "j" ;
-    auto k = j->tanh() ;
-    k->label = "k" ;
-    auto l = k->power(2) ;
-    l->label = "l" ;
-    auto m = l + a/b ;
-    m->label = "m" ;
-    m->backward() ;
-    // a->show() ;
-    // b->show() ;
-    // c->show() ;
-    // d->show() ;
-    // e->show() ;
-    // f->show() ;
-    // g->show() ;
-    // h->show() ;
-    // i->show() ;
-    // j->show() ;
-    // k->show() ;
-    // l->show() ;
-    print_tree(m,true) ;
+    freopen("output.txt","w",stdout) ;
+    // shared_ptr<node> a {make_shared<node>(1.0)} ;
+    shared_ptr<node> b {make_shared<node>(2.0)} ;
+    shared_ptr<node> c {make_shared<node>(3.0)} ;
+    shared_ptr<node> d {make_shared<node>(-1.0)} ;
+    vector<shared_ptr<node>> x {b,c,d} ;
+    vector<int> layerdef {3,3,1} ;
+    MLP n {3,layerdef} ;
+    print_tree(n(x)[0],true) ;
 }
