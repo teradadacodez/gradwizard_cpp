@@ -1,6 +1,6 @@
 #include "gradwizard.hpp"
 
-node::node(double d, string l, string o) : data(d), grad(0.0), op(0), _backward([](){}), label(l) {}
+node::node(double d, string l, string o) : data(d), grad(0.0), op(o), _backward([](){}), label(l) {}
 
 double node::getdata() const {return data ;}
 double node::getgrad() const {return grad ;}
