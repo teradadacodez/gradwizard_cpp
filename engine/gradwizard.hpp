@@ -37,6 +37,6 @@ class node : public enable_shared_from_this<node>
     friend shared_ptr<node> operator/(shared_ptr<node> self, shared_ptr<node> other) ;
 } ;
 
-void print_tree(const shared_ptr<node>&,bool annot = false, int depth = 0, unordered_set<node*>* visited) ;
+void print_tree(const shared_ptr<node>&,bool annot = false, int depth = 0, unordered_set<node*>* visited = nullptr) ;
 
 #endif
