@@ -7,6 +7,9 @@ int main()
     shared_ptr<node> d {make_shared<node>(-1.0)} ;
     vector<shared_ptr<node>> x {b,c,d} ;
     vector<int> layerdef {3,3,1} ;
-    MLP n {3,layerdef} ;
-    print_tree(n(x)[0],true) ;
+    MLP n {2,layerdef} ;
+    auto output {n(x)[0]} ;
+    output->backward() ;
+    print_tree(output,true) ;
+    for(auto i : n.parameters()) i->show() ;
 }
