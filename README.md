@@ -1,4 +1,4 @@
-# GRADWIZARD - A C++ engine for automatic differention build from scratch
+# GRADWIZARD - A modern C++ engine for automatic differentiation
 
 This project is a **C++ implementation of a micrograd-style automatic differentiation engine**, inspired by Andrej Karpathy’s micrograd.  
 The focus is on **understanding gradwizard internals**, correct **ownership semantics**, and building a **clean multi-file C++ project** from first principles.
