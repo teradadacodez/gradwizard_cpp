@@ -39,4 +39,6 @@ class node : public enable_shared_from_this<node>
 
 void print_tree(const shared_ptr<node>&,bool annot = false, int depth = 0, unordered_set<node*>* visited = nullptr) ;
 
+// wrapper function to return shared_ptr<node>
+shared_ptr<node> Value(double v, string label = "") ;
 #endif

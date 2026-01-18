@@ -256,14 +256,25 @@ class MLP
         return params ;
     }
 };
+
+shared_ptr<node> Value(double v, string label = "")
+{
+    return make_shared<node>(v,label) ;
+}
+
 int main()
 {
     freopen("output.txt","w",stdout) ;
     // shared_ptr<node> a {make_shared<node>(1.0)} ;
     // shared_ptr<node> b {make_shared<node>(2.0)} ;
-    shared_ptr<node> c {make_shared<node>(3.0)} ;
-    shared_ptr<node> d {make_shared<node>(-1.0)} ;
-    vector<shared_ptr<node>> x {c,d} ;
+    // shared_ptr<node> c {make_shared<node>(3.0)} ;
+    // shared_ptr<node> d {make_shared<node>(-1.0)} ;
+    // vector<shared_ptr<node>> x {c,d} ;
+    auto a {Value(1.0)} ;
+    auto b {Value(2.0)} ;
+    auto c {Value(3.0)} ;
+    auto d {Value(-1.0)} ;
+    vector<shared_ptr<node>> x {a,b} ;
     vector<int> layerdef {2,1} ;
     MLP n {2,layerdef} ;
     auto output {n(x)[0]} ;

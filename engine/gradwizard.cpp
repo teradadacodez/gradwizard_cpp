@@ -154,3 +154,8 @@ void print_tree(
     if (root_call)
         delete visited;
 }
+
+shared_ptr<node> Value(double v, string label)
+{
+    return make_shared<node>(v,label) ;
+}
