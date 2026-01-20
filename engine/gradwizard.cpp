@@ -6,6 +6,15 @@ double node::getdata() const {return data ;}
 double node::getgrad() const {return grad ;}
 string node::getlabel() const {return label ;}
 string node::getop() const {return op ;}
+
+void node::add_to_data(double delta)
+{
+    data += delta ;
+}
+void node::add_to_grad(double delta)
+{
+    grad += delta ;
+}
 void node::show()
 {
     cout << "data : " << getdata() << " ||  grad : " << getgrad() << " || " ;
@@ -16,8 +25,7 @@ const vector<shared_ptr<node>>& node::getparents() const {return parents ;}
 
 shared_ptr<node> node::power(double n)
 {
-    double m {n}, val {1} ;
-    while(m--) val*=data ;
+    double val {pow(data,n)} ;
     auto out = make_shared<node>(val,"","power") ;
     auto self {shared_from_this()} ;
     out->parents = {self} ;

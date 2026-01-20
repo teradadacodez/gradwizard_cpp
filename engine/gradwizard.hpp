@@ -27,6 +27,10 @@ class node : public enable_shared_from_this<node>
     void show() ;
     const vector<shared_ptr<node>>& getparents() const ;
 
+    //adders
+    void add_to_data(double delta) ;
+    void add_to_grad(double delta) ;
+
     // operations and gradient calculation
     void backward() ;
     shared_ptr<node> tanh() ;
