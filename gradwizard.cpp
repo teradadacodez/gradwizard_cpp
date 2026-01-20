@@ -45,8 +45,7 @@ class node : public enable_shared_from_this<node>
 
     shared_ptr<node> power(double n)
     {
-        double m {n}, val {1} ;
-        while(m--) val*=data ;
+        double val {pow(data,n)} ;
         auto out = make_shared<node>(val,"","power") ;
         auto self {shared_from_this()} ;
         out->parents = {self} ;
@@ -278,7 +277,7 @@ class optimizer
 {
     double learning_rate ;
     public :
-    optimizer(double lr) : learning_rate(lr) {}
+    optimizer(double lr = 0.001) : learning_rate(lr) {}
     void step(const vector<shared_ptr<node>>& params)
     {
         for(auto& p : params) p->add_to_data((-learning_rate)*(p->getgrad())) ;
@@ -289,31 +288,70 @@ class optimizer
     }
 };
 
+class loss_function
+{
+    string criterion ;
+    function<shared_ptr<node>(vector<shared_ptr<node>>,vector<shared_ptr<node>>)> loss_fn ;
+    public : 
+    loss_function(string type = "mse") : criterion(type)
+    {
+        if(type == "mse")
+        {
+            loss_fn = [](vector<shared_ptr<node>> pred, vector<shared_ptr<node>> target)
+            {
+                auto loss = Value(0.0) ;
+                for(int i {0} ; i<pred.size() ; i++) loss = loss + (pred[i]-target[i])->power(2) ;
+                return loss/Value((double)pred.size()) ;
+            };
+        }
+        else if(type == "rmse")
+        {
+            loss_fn = [](vector<shared_ptr<node>> pred, vector<shared_ptr<node>> target)
+            {
+                auto loss = Value(0.0) ;
+                for(int i {0} ; i<pred.size() ; i++) loss = loss + (pred[i]-target[i])->power(2) ;
+                auto mse =  loss/Value((double)pred.size()) ;
+                return mse->power(0.5) ;
+            };
+        }
+        else // "mae"
+        {
+            loss_fn = [](vector<shared_ptr<node>> pred, vector<shared_ptr<node>> target)
+            {
+                auto loss = Value(0.0) ;
+                for(int i {0} ; i<pred.size() ; i++) loss = loss + ((pred[i]-target[i])->power(2))->power(0.5) ;
+                return loss/Value((double)pred.size()) ;
+            };
+        }
+    }
+    shared_ptr<node> operator() (vector<shared_ptr<node>> pred, vector<shared_ptr<node>> target)
+    {
+        return loss_fn(pred,target) ;
+    }
+    string get_criterion()
+    {
+        return criterion ;
+    }
+};
+
 int main()
 {
     freopen("output.txt","w",stdout) ;
-    auto a {Value(1.0)} ;
-    auto b {Value(2.0)} ;
-    auto c {Value(3.0)} ;
-    auto d {Value(-1.0)} ;
-    vector<shared_ptr<node>> x {a,b} ;
-    vector<shared_ptr<node>> y {Value(3.0),Value(6.0)} ;
     vector<int> layerdef {4,4,2} ;
     MLP n {2,layerdef} ;
     auto params = n.parameters() ;
     optimizer opt(0.01) ;
-    int epochs {200} ;
+    int epochs {300} ;
+    loss_function func("rmse") ;
     for (int i {0} ; i<epochs ; i++)
     {
-        auto x_copy = x ;
-        auto preds = n(x_copy) ;
-        auto diff1 = preds[0]-y[0] ;
-        auto diff2 = preds[1]-y[1] ;
-        auto total_loss = (diff1->power(2) + diff2->power(2))/Value(2.0) ; //mean squared loss !!
+        vector<shared_ptr<node>> x {Value(1.0), Value(2.0)} ;
+        vector<shared_ptr<node>> y {Value(3.0), Value(6.0)} ;
+        auto preds = n(x) ;
+        auto total_loss = func(preds,y) ;
         total_loss->backward() ;
         opt.step(params) ;
         opt.zero_grad(params) ;
-
         if((i+1)%10 == 0)
         {
             cout << "Epoch " << i+1 << "/" << epochs << " : " ;

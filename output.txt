@@ -1,42 +1,60 @@
-Epoch 10/200 : Predictions : 2.78077,3.70196
-Loss = 2.66452
-Epoch 20/200 : Predictions : 2.86888,4.61551
-Loss = 0.966999
-Epoch 30/200 : Predictions : 2.92161,5.16658
-Loss = 0.350366
-Epoch 40/200 : Predictions : 2.95314,5.49852
-Loss = 0.12684
-Epoch 50/200 : Predictions : 2.972,5.69832
-Loss = 0.0458983
-Epoch 60/200 : Predictions : 2.98326,5.81854
-Loss = 0.0166045
-Epoch 70/200 : Predictions : 2.99,5.89086
-Loss = 0.00600605
-Epoch 80/200 : Predictions : 2.99402,5.93436
-Loss = 0.00217228
-Epoch 90/200 : Predictions : 2.99643,5.96052
-Loss = 0.000785633
-Epoch 100/200 : Predictions : 2.99787,5.97626
-Loss = 0.000284126
-Epoch 110/200 : Predictions : 2.99873,5.98572
-Loss = 0.000102753
-Epoch 120/200 : Predictions : 2.99924,5.99141
-Loss = 3.71599e-05
-Epoch 130/200 : Predictions : 2.99955,5.99484
-Loss = 1.34385e-05
-Epoch 140/200 : Predictions : 2.99973,5.99689
-Loss = 4.8599e-06
-Epoch 150/200 : Predictions : 2.99984,5.99813
-Loss = 1.75753e-06
-Epoch 160/200 : Predictions : 2.9999,5.99888
-Loss = 6.35593e-07
-Epoch 170/200 : Predictions : 2.99994,5.99932
-Loss = 2.29856e-07
-Epoch 180/200 : Predictions : 2.99997,5.99959
-Loss = 8.31249e-08
-Epoch 190/200 : Predictions : 2.99998,5.99976
-Loss = 3.00613e-08
-Epoch 200/200 : Predictions : 2.99999,5.99985
-Loss = 1.08714e-08
-node destructor
-node destructor
+Epoch 10/300 : Predictions : 2.38427,3.25092
+Loss = 1.99205
+Epoch 20/300 : Predictions : 2.45932,3.585
+Loss = 1.74993
+Epoch 30/300 : Predictions : 2.53445,3.91949
+Loss = 1.50752
+Epoch 40/300 : Predictions : 2.60965,4.25443
+Loss = 1.26479
+Epoch 50/300 : Predictions : 2.68492,4.58984
+Loss = 1.02172
+Epoch 60/300 : Predictions : 2.76024,4.92577
+Loss = 0.778286
+Epoch 70/300 : Predictions : 2.83559,5.26222
+Loss = 0.534484
+Epoch 80/300 : Predictions : 2.91092,5.59922
+Loss = 0.290312
+Epoch 90/300 : Predictions : 2.98607,5.93679
+Loss = 0.0457716
+Epoch 100/300 : Predictions : 3.00111,6.00435
+Loss = 0.00317311
+Epoch 110/300 : Predictions : 3.00121,6.00431
+Loss = 0.00316431
+Epoch 120/300 : Predictions : 3.00129,6.00427
+Loss = 0.0031554
+Epoch 130/300 : Predictions : 3.00134,6.00424
+Loss = 0.00314642
+Epoch 140/300 : Predictions : 3.00137,6.00422
+Loss = 0.00313742
+Epoch 150/300 : Predictions : 3.0014,6.0042
+Loss = 0.0031284
+Epoch 160/300 : Predictions : 3.00141,6.00418
+Loss = 0.00311938
+Epoch 170/300 : Predictions : 3.00142,6.00416
+Loss = 0.00311034
+Epoch 180/300 : Predictions : 3.00143,6.00415
+Loss = 0.00310131
+Epoch 190/300 : Predictions : 3.00143,6.00413
+Loss = 0.00309227
+Epoch 200/300 : Predictions : 3.00143,6.00412
+Loss = 0.00308324
+Epoch 210/300 : Predictions : 3.00143,6.0041
+Loss = 0.0030742
+Epoch 220/300 : Predictions : 3.00143,6.00409
+Loss = 0.00306516
+Epoch 230/300 : Predictions : 3.00143,6.00408
+Loss = 0.00305612
+Epoch 240/300 : Predictions : 3.00142,6.00407
+Loss = 0.00304707
+Epoch 250/300 : Predictions : 3.00142,6.00405
+Loss = 0.00303803
+Epoch 260/300 : Predictions : 3.00142,6.00404
+Loss = 0.00302898
+Epoch 270/300 : Predictions : 3.00141,6.00403
+Loss = 0.00301994
+Epoch 280/300 : Predictions : 3.00141,6.00402
+Loss = 0.00301089
+Epoch 290/300 : Predictions : 3.00141,6.00401
+Loss = 0.00300184
+Epoch 300/300 : Predictions : 3.0014,6.00399
+Loss = 0.00299279
