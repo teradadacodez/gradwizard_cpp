@@ -24,7 +24,14 @@ class node : public enable_shared_from_this<node>
     string getop() const {return op ;}
     string getlabel() const {return label ;}
     const vector<shared_ptr<node>>& getparents() const {return parents ;}
-
+    void add_to_data(double delta)
+    {
+        data += delta ;
+    }
+    void add_to_grad(double delta)
+    {
+        grad += delta ;
+    }
     void show()
     {
         cout << "data : " << getdata() << " ||  grad : " << getgrad() << " || " ;
@@ -188,24 +195,24 @@ uniform_real_distribution<double> distribution(0.0000001,1.0) ;
 
 class Neuron : public enable_shared_from_this<Neuron>
 {
-    vector<shared_ptr<node>> weights ;
+    vector<shared_ptr<node>> weight ;
     shared_ptr<node> bias ;
-
+    bool is_output_neuron ;
     public : 
-    Neuron(int nin)
+    Neuron(int nin, bool is_out = false) : is_output_neuron(is_out)
     {
-        for(int i {0} ; i<nin ; i++) weights.push_back(make_shared<node>(distribution(generator))) ;
+        for(int i {0} ; i<nin ; i++) weight.push_back(make_shared<node>(distribution(generator))) ;
         bias = make_shared<node>(distribution(generator)) ;
     }
     shared_ptr<node> operator() (const vector<shared_ptr<node>>& x)
     {
-        auto act {bias} ;
-        for(int i {0} ; i<weights.size() ; i++) act = act + weights[i]*x[i] ;
-        return act->tanh() ;
+        auto act {bias} ;   
+        for(int i {0} ; i<weight.size() ; i++) act = act + weight[i]*x[i] ;
+        return ((is_output_neuron) ? act : act->tanh()) ;
     }
     vector<shared_ptr<node>> parameters() const
     {
-        vector<shared_ptr<node>> params = weights ;
+        vector<shared_ptr<node>> params = weight ;
         params.push_back(bias) ;
         return params ;
     }  
@@ -214,9 +221,9 @@ class Layer
 {
     vector<Neuron> layer ; // no vector<shared_ptr<Neuron>> because layer owns it's neurons !!
     public : 
-    Layer(int nin, int nout)
+    Layer(int nin, int nout, bool is_output_layer = false)
     {
-        for(int i {0} ; i<nout ; i++) layer.push_back(Neuron(nin)) ;
+        for(int i {0} ; i<nout ; i++) layer.push_back(Neuron(nin, is_output_layer)) ;
     }
     vector<shared_ptr<node>> operator() (const vector<shared_ptr<node>>& x)
     {
@@ -224,7 +231,8 @@ class Layer
         for(auto& neu : this->layer) output.push_back(neu(x));
         return output ;
     }
-    vector<shared_ptr<node>> parameters() const{
+    vector<shared_ptr<node>> parameters() const
+    {
         vector<shared_ptr<node>> params ;
         for(const auto& i : this->layer)
         {
@@ -242,7 +250,11 @@ class MLP
         vector<int> sz ;
         sz.push_back(nin) ;
         for(auto i : nouts) sz.push_back(i) ;
-        for(int i {0} ; i<nouts.size() ; i++) mlp.push_back(Layer(sz[i],sz[i+1])) ;
+        for(int i {0} ; i<nouts.size() ; i++) 
+        {
+            bool is_last_layer = (i==nouts.size()-1) ;
+            mlp.push_back(Layer(sz[i],sz[i+1],is_last_layer)) ;
+        }
     }
     vector<shared_ptr<node>> operator() (vector<shared_ptr<node>>& x) 
     {
@@ -262,23 +274,51 @@ shared_ptr<node> Value(double v, string label = "")
     return make_shared<node>(v,label) ;
 }
 
+class optimizer
+{
+    double learning_rate ;
+    public :
+    optimizer(double lr) : learning_rate(lr) {}
+    void step(const vector<shared_ptr<node>>& params)
+    {
+        for(auto& p : params) p->add_to_data((-learning_rate)*(p->getgrad())) ;
+    }
+    void zero_grad(const vector<shared_ptr<node>>& params)
+    {
+        for(auto& p : params) p->add_to_grad(-(p->getgrad())) ;
+    }
+};
+
 int main()
 {
     freopen("output.txt","w",stdout) ;
-    // shared_ptr<node> a {make_shared<node>(1.0)} ;
-    // shared_ptr<node> b {make_shared<node>(2.0)} ;
-    // shared_ptr<node> c {make_shared<node>(3.0)} ;
-    // shared_ptr<node> d {make_shared<node>(-1.0)} ;
-    // vector<shared_ptr<node>> x {c,d} ;
     auto a {Value(1.0)} ;
     auto b {Value(2.0)} ;
     auto c {Value(3.0)} ;
     auto d {Value(-1.0)} ;
     vector<shared_ptr<node>> x {a,b} ;
-    vector<int> layerdef {2,1} ;
+    vector<shared_ptr<node>> y {Value(3.0),Value(6.0)} ;
+    vector<int> layerdef {4,4,2} ;
     MLP n {2,layerdef} ;
-    auto output {n(x)[0]} ;
-    output->backward() ;
-    print_tree(output,true) ;
-    for(auto i : n.parameters()) i->show() ;
+    auto params = n.parameters() ;
+    optimizer opt(0.01) ;
+    int epochs {200} ;
+    for (int i {0} ; i<epochs ; i++)
+    {
+        auto x_copy = x ;
+        auto preds = n(x_copy) ;
+        auto diff1 = preds[0]-y[0] ;
+        auto diff2 = preds[1]-y[1] ;
+        auto total_loss = (diff1->power(2) + diff2->power(2))/Value(2.0) ; //mean squared loss !!
+        total_loss->backward() ;
+        opt.step(params) ;
+        opt.zero_grad(params) ;
+
+        if((i+1)%10 == 0)
+        {
+            cout << "Epoch " << i+1 << "/" << epochs << " : " ;
+            cout << "Predictions : " << preds[0]->getdata() << "," << preds[1]->getdata() << endl;
+            cout << "Loss = " << total_loss->getdata() << endl;
+        }
+    }
 }
