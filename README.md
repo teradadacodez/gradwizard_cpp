@@ -18,13 +18,16 @@ engine/
 |---> rng.hpp // Random number generator interface
 |---> rng.cpp // RNG implementation (mt19937, uniform distribution)
 |
+|---> opt_loss.hpp // for optimizer and loss_function
+|---> opt_loss.cpp // their definitions
+|
 |---> main.cpp // Entry point: builds graph, runs forward/backward
+
+root/
 |
-|---> output.txt // Sample output / debugging logs
-|---> temp.cpp // Scratch / experimentation file
-|
+|---> temp.cpp // a temporary file for testing
 |---> .gitignore
-|---> README.md
+|---> output.txt // logs
 
 ---
 
@@ -139,6 +142,27 @@ This guarantees:
 
 ---
 
+## 4. OPT-LOSS (`opt_loss.hpp / opt_loss.cpp`)
+
+### `optimizer`
+
+- Holds:
+  - learning rate: `double learning_rate`
+- step function:
+  - updates the weight of each parameter
+- zero_grad function:
+  - vanishes out grads for next epoch
+
+---
+
+### `loss_functions`
+
+- A collection of `Most Popular Loss Functions known to MANKIND ;)`
+- callable : 
+  - returns `shared_ptr<node> total_loss`
+
+---
+
 ### Ownership Model
 
 MLP
@@ -148,7 +172,7 @@ MLP
 
 ---
 
-## 4. `print_tree()` – Computation Graph Visualization
+## 5. `print_tree()` – Computation Graph Visualization
 
 ### Purpose
 
@@ -176,7 +200,7 @@ MLP
 
 ---
 
-## 5. Random Number Generator (`rng.hpp / rng.cpp`)
+## 6. Random Number Generator (`rng.hpp / rng.cpp`)
 
 - Uses `std::mt19937`
 - Uniform real distribution
@@ -188,19 +212,3 @@ MLP
 This ensures reproducible weight initialization.
 
 ---
-
-# How to Build and Run this engine
-
----
-
-## 1. Clone the Repository
-
-Open terminal and write : 
-
-git clone https://github.com/teradadacodez/gradwizard_cpp
-cd gradwizard_cpp
-cd engine
-g++ *.cpp -o app
-.\app.exe (for windows 10+) || app (for linux)
-
-=========================================================================================
