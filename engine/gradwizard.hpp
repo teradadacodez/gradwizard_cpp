@@ -45,4 +45,11 @@ void print_tree(const shared_ptr<node>&,bool annot = false, int depth = 0, unord
 
 // wrapper function to return shared_ptr<node>
 shared_ptr<node> Value(double v, string label = "") ;
+// template wrapper
+template<typename T>
+vector<shared_ptr<node>> Value(const vector<T> v)
+{
+    vector<shared_ptr<node>> ret ;
+    for(const auto& i : v) ret.push_back(Value(static_cast<double>(i))) ;
+}
 #endif

@@ -272,7 +272,12 @@ shared_ptr<node> Value(double v, string label = "")
 {
     return make_shared<node>(v,label) ;
 }
-
+template<typename T>
+vector<shared_ptr<node>> Value(const vector<T> v)
+{
+    vector<shared_ptr<node>> ret ;
+    for(const auto& i : v) ret.push_back(Value(static_cast<double>(i))) ;
+}
 class optimizer
 {
     double learning_rate ;
