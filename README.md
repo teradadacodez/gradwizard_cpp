@@ -1,6 +1,6 @@
 # GRADWIZARD (opt-loss) - A modern C++ engine for automatic differentiation
 
-This project is a **Extension of C++ implementation of a micrograd-style automatic differentiation engine**, inspired by Andrej Karpathy’s micrograd.  
+This project is a **Extension of my C++ implementation of automatic differentiation engine** !  
 The focus is on **understanding gradwizard internals**, correct **ownership semantics**, and building a **clean multi-file Neural Network Engine** from first principles.
 
 ---
@@ -34,10 +34,11 @@ root/
 
 ## Core Design Overview
 
-The engine is divided into two major layers:
+The engine is divided into Three major layers:
 
 1. **gradwizard Core (`node`)**
-2. **Neural Network Abstractions (`Neuron`, `Layer`, `MLP`, `optimzer`, `loss_function`)**
+2. **Neural Network Abstractions (`Neuron`, `Layer`, `MLP`)**
+3. **Training and Optimization (`optimzer`, `loss_function`)**
 
 ---
 
