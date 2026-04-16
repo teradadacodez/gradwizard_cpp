@@ -10,7 +10,7 @@ shared_ptr<node> Neuron::operator() (const vector<shared_ptr<node>>& x)
 {
     auto act {bias} ;   
     for(int i {0} ; i<weight.size() ; i++) act = act + weight[i]*x[i] ;
-    return ((is_output_neuron) ? act : act->tanh()) ;
+    return ((is_output_neuron) ? act : act->relu()) ;
 }
 vector<shared_ptr<node>> Neuron::parameters() const
 {

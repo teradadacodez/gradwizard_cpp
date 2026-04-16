@@ -1,4 +1,4 @@
-#include "gradwizard.hpp"
+ #include "gradwizard.hpp"
 
 node::node(double d, string l, string o) : data(d), grad(0.0), op(o), _backward([](){}), label(l) {}
 
@@ -45,6 +45,18 @@ shared_ptr<node> node::tanh()
     out->_backward = [self,out,t]()
     {
         self->grad += (1-t*t)*out->grad ;
+    };
+    return out ;
+}
+shared_ptr<node> node::relu()
+{
+    double val = data>0 ? data:0 ;
+    auto out = make_shared<node>(val,"","relu") ;
+    auto self = shared_from_this() ;
+    out->parents = {self} ;
+    out->_backward = [self,out] ()
+    {
+        self->grad += (self->data > 0 ? 1.0 : 0.0) * out->grad ;
     };
     return out ;
 }

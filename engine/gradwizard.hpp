@@ -34,6 +34,7 @@ class node : public enable_shared_from_this<node>
     // operations and gradient calculation
     void backward() ;
     shared_ptr<node> tanh() ;
+    shared_ptr<node> relu() ;
     shared_ptr<node> power(double) ;
     friend shared_ptr<node> operator+(shared_ptr<node> self, shared_ptr<node> other) ;
     friend shared_ptr<node> operator*(shared_ptr<node> self, shared_ptr<node> other) ;
