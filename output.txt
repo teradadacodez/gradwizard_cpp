@@ -1,111 +1,111 @@
-Total loss after epoch 10 is 44.1229
-Total loss after epoch 20 is 43.7229
-Total loss after epoch 30 is 43.3229
-Total loss after epoch 40 is 42.9229
-Total loss after epoch 50 is 42.5229
-Total loss after epoch 60 is 42.1229
-Total loss after epoch 70 is 41.723
-Total loss after epoch 80 is 41.323
-Total loss after epoch 90 is 40.923
-Total loss after epoch 100 is 40.523
-Total loss after epoch 110 is 40.123
-Total loss after epoch 120 is 39.723
-Total loss after epoch 130 is 39.323
-Total loss after epoch 140 is 38.923
-Total loss after epoch 150 is 38.523
-Total loss after epoch 160 is 38.123
-Total loss after epoch 170 is 37.723
-Total loss after epoch 180 is 37.323
-Total loss after epoch 190 is 36.923
-Total loss after epoch 200 is 36.523
-Total loss after epoch 210 is 36.123
-Total loss after epoch 220 is 35.723
-Total loss after epoch 230 is 35.323
-Total loss after epoch 240 is 34.923
-Total loss after epoch 250 is 34.523
-Total loss after epoch 260 is 34.123
-Total loss after epoch 270 is 33.723
-Total loss after epoch 280 is 33.323
-Total loss after epoch 290 is 32.923
-Total loss after epoch 300 is 32.523
-Total loss after epoch 310 is 32.123
-Total loss after epoch 320 is 31.723
-Total loss after epoch 330 is 31.323
-Total loss after epoch 340 is 30.923
-Total loss after epoch 350 is 30.523
-Total loss after epoch 360 is 30.123
-Total loss after epoch 370 is 29.723
-Total loss after epoch 380 is 29.323
-Total loss after epoch 390 is 28.923
-Total loss after epoch 400 is 28.523
-Total loss after epoch 410 is 28.123
-Total loss after epoch 420 is 27.723
-Total loss after epoch 430 is 27.323
-Total loss after epoch 440 is 26.923
-Total loss after epoch 450 is 26.523
-Total loss after epoch 460 is 26.123
-Total loss after epoch 470 is 25.723
-Total loss after epoch 480 is 25.323
-Total loss after epoch 490 is 24.923
-Total loss after epoch 500 is 24.523
-Total loss after epoch 510 is 24.123
-Total loss after epoch 520 is 23.723
-Total loss after epoch 530 is 23.323
-Total loss after epoch 540 is 22.923
-Total loss after epoch 550 is 22.523
-Total loss after epoch 560 is 22.123
-Total loss after epoch 570 is 21.723
-Total loss after epoch 580 is 21.323
-Total loss after epoch 590 is 20.923
-Total loss after epoch 600 is 20.523
-Total loss after epoch 610 is 20.123
-Total loss after epoch 620 is 19.723
-Total loss after epoch 630 is 19.323
-Total loss after epoch 640 is 18.923
-Total loss after epoch 650 is 18.523
-Total loss after epoch 660 is 18.123
-Total loss after epoch 670 is 17.723
-Total loss after epoch 680 is 17.323
-Total loss after epoch 690 is 16.923
-Total loss after epoch 700 is 16.523
-Total loss after epoch 710 is 16.123
-Total loss after epoch 720 is 15.723
-Total loss after epoch 730 is 15.323
-Total loss after epoch 740 is 14.923
-Total loss after epoch 750 is 14.523
-Total loss after epoch 760 is 14.123
-Total loss after epoch 770 is 13.723
-Total loss after epoch 780 is 13.323
-Total loss after epoch 790 is 12.923
-Total loss after epoch 800 is 12.523
-Total loss after epoch 810 is 12.123
-Total loss after epoch 820 is 11.723
-Total loss after epoch 830 is 11.323
-Total loss after epoch 840 is 10.923
-Total loss after epoch 850 is 10.523
-Total loss after epoch 860 is 10.123
-Total loss after epoch 870 is 9.72304
-Total loss after epoch 880 is 9.32304
-Total loss after epoch 890 is 8.92304
-Total loss after epoch 900 is 8.52304
-Total loss after epoch 910 is 8.12304
-Total loss after epoch 920 is 7.72304
-Total loss after epoch 930 is 7.32304
-Total loss after epoch 940 is 6.92305
-Total loss after epoch 950 is 6.52305
-Total loss after epoch 960 is 6.12305
-Total loss after epoch 970 is 5.72305
-Total loss after epoch 980 is 5.32305
-Total loss after epoch 990 is 4.92305
-Total loss after epoch 1000 is 4.52305
+Total loss after epoch 10 is 298.991
+Total loss after epoch 20 is 285.494
+Total loss after epoch 30 is 276.659
+Total loss after epoch 40 is 275.946
+Total loss after epoch 50 is 275.732
+Total loss after epoch 60 is 270.522
+Total loss after epoch 70 is 244.407
+Total loss after epoch 80 is 200.064
+Total loss after epoch 90 is 190.849
+Total loss after epoch 100 is 291.744
+Total loss after epoch 110 is 217.09
+Total loss after epoch 120 is 341.476
+Total loss after epoch 130 is 284.653
+Total loss after epoch 140 is 275.775
+Total loss after epoch 150 is 276.078
+Total loss after epoch 160 is 276.075
+Total loss after epoch 170 is 276.073
+Total loss after epoch 180 is 276.07
+Total loss after epoch 190 is 276.066
+Total loss after epoch 200 is 276.061
+Total loss after epoch 210 is 276.054
+Total loss after epoch 220 is 276.044
+Total loss after epoch 230 is 276.027
+Total loss after epoch 240 is 275.993
+Total loss after epoch 250 is 275.89
+Total loss after epoch 260 is 275.766
+Total loss after epoch 270 is 271.931
+Total loss after epoch 280 is 276.471
+Total loss after epoch 290 is 276.191
+Total loss after epoch 300 is 276.111
+Total loss after epoch 310 is 276.047
+Total loss after epoch 320 is 275.995
+Total loss after epoch 330 is 275.939
+Total loss after epoch 340 is 275.863
+Total loss after epoch 350 is 275.231
+Total loss after epoch 360 is 281.842
+Total loss after epoch 370 is 276.002
+Total loss after epoch 380 is 275.93
+Total loss after epoch 390 is 275.302
+Total loss after epoch 400 is 276.319
+Total loss after epoch 410 is 276.199
+Total loss after epoch 420 is 276.162
+Total loss after epoch 430 is 276.144
+Total loss after epoch 440 is 276.133
+Total loss after epoch 450 is 276.126
+Total loss after epoch 460 is 276.121
+Total loss after epoch 470 is 276.117
+Total loss after epoch 480 is 276.114
+Total loss after epoch 490 is 276.111
+Total loss after epoch 500 is 276.109
+Total loss after epoch 510 is 276.108
+Total loss after epoch 520 is 276.106
+Total loss after epoch 530 is 276.105
+Total loss after epoch 540 is 276.104
+Total loss after epoch 550 is 276.103
+Total loss after epoch 560 is 276.102
+Total loss after epoch 570 is 276.101
+Total loss after epoch 580 is 276.101
+Total loss after epoch 590 is 276.1
+Total loss after epoch 600 is 276.099
+Total loss after epoch 610 is 276.099
+Total loss after epoch 620 is 276.098
+Total loss after epoch 630 is 276.098
+Total loss after epoch 640 is 276.097
+Total loss after epoch 650 is 276.097
+Total loss after epoch 660 is 276.096
+Total loss after epoch 670 is 276.096
+Total loss after epoch 680 is 276.095
+Total loss after epoch 690 is 276.095
+Total loss after epoch 700 is 276.095
+Total loss after epoch 710 is 276.094
+Total loss after epoch 720 is 276.094
+Total loss after epoch 730 is 276.093
+Total loss after epoch 740 is 276.093
+Total loss after epoch 750 is 276.092
+Total loss after epoch 760 is 276.092
+Total loss after epoch 770 is 276.091
+Total loss after epoch 780 is 276.091
+Total loss after epoch 790 is 276.09
+Total loss after epoch 800 is 276.09
+Total loss after epoch 810 is 276.089
+Total loss after epoch 820 is 276.089
+Total loss after epoch 830 is 276.088
+Total loss after epoch 840 is 276.087
+Total loss after epoch 850 is 276.086
+Total loss after epoch 860 is 276.085
+Total loss after epoch 870 is 276.084
+Total loss after epoch 880 is 276.083
+Total loss after epoch 890 is 276.082
+Total loss after epoch 900 is 276.081
+Total loss after epoch 910 is 276.079
+Total loss after epoch 920 is 276.077
+Total loss after epoch 930 is 276.074
+Total loss after epoch 940 is 276.071
+Total loss after epoch 950 is 276.067
+Total loss after epoch 960 is 276.062
+Total loss after epoch 970 is 276.055
+Total loss after epoch 980 is 276.046
+Total loss after epoch 990 is 276.038
+Total loss after epoch 1000 is 276.031
 Testing...
-input 6, output 2.76842
-input 7, output 5.27721
-input 8, output 9.96229
-input 9, output 16.0579
-input 10, output 24.0885
-input 11, output 34.132
-input 12, output 45.7337
-input 13, output 59.4111
-input 14, output 74.6099
-input 15, output 91.8627
+input 6, output 28.553
+input 7, output 28.557
+input 8, output 28.56
+input 9, output 28.5624
+input 10, output 28.5642
+input 11, output 28.5656
+input 12, output 28.5667
+input 13, output 28.5675
+input 14, output 28.5682
+input 15, output 28.5687

@@ -345,10 +345,10 @@ SOLUTION TO THIS MAY BE TO FEED INPUTS IN BATCHES AND NOT ALL INPUTS AT ONCE AND
 int main()
 {
     freopen("output.txt","w",stdout) ;
-    vector<int> layerdef {15,15,10} ;
-    MLP net {10,layerdef} ;
+    vector<int> layerdef {10,10,1} ;
+    MLP net {1,layerdef} ;
     auto params = net.parameters() ;
-    optimizer opt(0.025) ;
+    optimizer opt(0.02) ;
     loss_function fn("rmse") ;
 
     int epochs {1000} ;
@@ -359,29 +359,28 @@ int main()
         vector<shared_ptr<node>> y ;
         for(int i {1} ; i<=10 ; i++)
         {
-            x.push_back(Value((double)i)) ;
-            y.push_back(Value((double)(i*i+1))) ;
+            vector<shared_ptr<node>> x {Value((double)i)} ;
+            vector<shared_ptr<node>> y {Value((double)(i*i+1))} ;
+
+            auto preds = net(x) ;
+            auto loss = fn(preds,y) ;
+            loss->backward() ;
+            opt.step(params) ;
+            opt.zero_grad(params) ;
+            epoch_loss += loss->getdata() ;
         }
-        auto preds = net(x) ;
-        auto loss = fn(preds,y) ;
-        loss->backward() ;
-        opt.step(params) ;
-        opt.zero_grad(params) ;
-        epoch_loss += loss->getdata() ;
         if((epoch+1)%10==0)
         {
             cout << "Total loss after epoch " << epoch+1 << " is " << epoch_loss << endl;
         }
     }
     cout << "Testing..." << endl;
-    vector<shared_ptr<node>> test_x ;
+
     for(int i {6} ; i<=15 ; i++)
     {
-        test_x.push_back(Value((double)i)) ;
-    }
-    auto preds = net(test_x) ;
-    for(int i {0} ; i<10 ; i++)
-    {
-        cout << "input " << test_x[i]->getdata() << ", output " << preds[i]->getdata() << endl;
+        vector<shared_ptr<node>> x {Value((double)i)} ;
+        auto pred = net(x);
+        cout << "input " << i 
+            << ", output " << pred[0]->getdata() << endl;
     }
 }
