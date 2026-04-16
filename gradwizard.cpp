@@ -360,10 +360,10 @@ int main()
     vector<int> layerdef {5,5,1} ;
     MLP net {1,layerdef} ;
     auto params = net.parameters() ;
-    optimizer opt(0.0005) ;
+    optimizer opt(0.00015) ;
     loss_function fn("rmse") ;
 
-    int epochs {1000} ;
+    int epochs {5000} ;
     for(int epoch {0} ; epoch<epochs ; epoch++)
     {
         double epoch_loss = 0.0 ;
