@@ -56,3 +56,15 @@
 //     cout << c << endl;
 //     cout << a+b << endl;  
 // }
+
+#include <bits/stdc++.h>
+using namespace std;
+
+int main()
+{
+    freopen("list.txt", "r", stdin) ;
+    fseek(stdin, 0, SEEK_END) ;
+    long long length = ftell(stdin) ;
+    fseek(stdin, 0, SEEK_SET) ;
+    cout << length << endl;
+}

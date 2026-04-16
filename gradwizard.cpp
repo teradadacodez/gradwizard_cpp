@@ -255,7 +255,7 @@ class MLP
             mlp.push_back(Layer(sz[i],sz[i+1],is_last_layer)) ;
         }
     }
-    vector<shared_ptr<node>> operator() (vector<shared_ptr<node>>& x) 
+    vector<shared_ptr<node>> operator() (vector<shared_ptr<node>> x) 
     {
         for(auto& l : mlp) x = l(x) ;
         return x ;
@@ -345,27 +345,43 @@ SOLUTION TO THIS MAY BE TO FEED INPUTS IN BATCHES AND NOT ALL INPUTS AT ONCE AND
 int main()
 {
     freopen("output.txt","w",stdout) ;
-    vector<int> layerdef {8,8,4} ;
-    MLP n {4,layerdef} ;
-    auto params = n.parameters() ;
-    optimizer opt(0.01) ;
+    vector<int> layerdef {15,15,10} ;
+    MLP net {10,layerdef} ;
+    auto params = net.parameters() ;
+    optimizer opt(0.025) ;
+    loss_function fn("rmse") ;
+
     int epochs {1000} ;
-    loss_function func("rmse") ;
-    for (int i {0} ; i<epochs ; i++)
+    for(int epoch {0} ; epoch<epochs ; epoch++)
     {
-        vector<shared_ptr<node>> x {Value(1.0), Value(2.0), Value(3.0), Value(4.0)} ;
-        vector<shared_ptr<node>> y {Value(3.0), Value(6.0), Value(11.0), Value(18.0)} ;
-        auto preds = n(x) ;
-        auto total_loss = func(preds,y) ;
-        total_loss->backward() ;
+        double epoch_loss = 0.0 ;
+        vector<shared_ptr<node>> x ;
+        vector<shared_ptr<node>> y ;
+        for(int i {1} ; i<=10 ; i++)
+        {
+            x.push_back(Value((double)i)) ;
+            y.push_back(Value((double)(i*i+1))) ;
+        }
+        auto preds = net(x) ;
+        auto loss = fn(preds,y) ;
+        loss->backward() ;
         opt.step(params) ;
         opt.zero_grad(params) ;
-        if((i+1)%10 == 0)
+        epoch_loss += loss->getdata() ;
+        if((epoch+1)%10==0)
         {
-            cout << "Epoch " << i+1 << "/" << epochs << " : " ;
-            cout << "Predictions : " << preds[0]->getdata() << "," << preds[1]->getdata() << "," ;
-            cout << preds[2]->getdata() << "," << preds[3]->getdata() << " | " ;
-            cout << "Loss = " << total_loss->getdata() << endl;
+            cout << "Total loss after epoch " << epoch+1 << " is " << epoch_loss << endl;
         }
+    }
+    cout << "Testing..." << endl;
+    vector<shared_ptr<node>> test_x ;
+    for(int i {6} ; i<=15 ; i++)
+    {
+        test_x.push_back(Value((double)i)) ;
+    }
+    auto preds = net(test_x) ;
+    for(int i {0} ; i<10 ; i++)
+    {
+        cout << "input " << test_x[i]->getdata() << ", output " << preds[i]->getdata() << endl;
     }
 }
