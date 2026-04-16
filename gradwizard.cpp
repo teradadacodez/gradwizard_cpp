@@ -357,7 +357,7 @@ SOLUTION TO THIS MAY BE TO FEED INPUTS IN BATCHES AND NOT ALL INPUTS AT ONCE AND
 int main()
 {
     freopen("output.txt","w",stdout) ;
-    vector<int> layerdef {5,5,1} ;
+    vector<int> layerdef {16,16,1} ;
     MLP net {1,layerdef} ;
     auto params = net.parameters() ;
     optimizer opt(0.00015) ;
