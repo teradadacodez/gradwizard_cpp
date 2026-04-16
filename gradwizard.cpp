@@ -68,6 +68,18 @@ class node : public enable_shared_from_this<node>
         };
         return out ;
     }
+    shared_ptr<node> relu()
+    {
+        double val = data>0 ? data:0 ;
+        auto out = make_shared<node>(val,"","relu") ;
+        auto self = shared_from_this() ;
+        out->parents = {self} ;
+        out->_backward = [self,out] ()
+        {
+            self->grad += (self->data > 0 ? 1.0 : 0.0) * out->grad ;
+        };
+        return out ;
+    }
 
     void backward()
     {
@@ -207,7 +219,7 @@ class Neuron : public enable_shared_from_this<Neuron>
     {
         auto act {bias} ;   
         for(int i {0} ; i<weight.size() ; i++) act = act + weight[i]*x[i] ;
-        return ((is_output_neuron) ? act : act->tanh()) ;
+        return ((is_output_neuron) ? act : act->relu()) ;
     }
     vector<shared_ptr<node>> parameters() const
     {
@@ -345,10 +357,10 @@ SOLUTION TO THIS MAY BE TO FEED INPUTS IN BATCHES AND NOT ALL INPUTS AT ONCE AND
 int main()
 {
     freopen("output.txt","w",stdout) ;
-    vector<int> layerdef {10,10,1} ;
+    vector<int> layerdef {5,5,1} ;
     MLP net {1,layerdef} ;
     auto params = net.parameters() ;
-    optimizer opt(0.02) ;
+    optimizer opt(0.0005) ;
     loss_function fn("rmse") ;
 
     int epochs {1000} ;
@@ -384,3 +396,7 @@ int main()
             << ", output " << pred[0]->getdata() << endl;
     }
 }
+
+// tanh(big number) = 1 and it's derivative 1 - tanh(big number)**2 = 0, so learning stops
+// this is called gradient vanishing !
+// relu is the fix :)
