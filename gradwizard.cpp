@@ -80,6 +80,18 @@ class node : public enable_shared_from_this<node>
         };
         return out ;
     }
+    shared_ptr<node> leaky_relu(double alpha = 0.01)
+    {
+        double val = data > 0 ? data : alpha*data ;
+        auto out = make_shared<node>(val,"","leaky_relu") ;
+        auto self = shared_from_this() ;
+        out->parents = {self} ;
+        out->_backward = [self,out,alpha]()
+        {
+            self->grad += (self->data > 0 ? 1.0 : alpha)*out->grad ;
+        };
+        return out ;
+    }
 
     void backward()
     {
@@ -219,7 +231,7 @@ class Neuron : public enable_shared_from_this<Neuron>
     {
         auto act {bias} ;   
         for(int i {0} ; i<weight.size() ; i++) act = act + weight[i]*x[i] ;
-        return ((is_output_neuron) ? act : act->relu()) ;
+        return ((is_output_neuron) ? act : act->leaky_relu()) ;
     }
     vector<shared_ptr<node>> parameters() const
     {
@@ -357,13 +369,13 @@ SOLUTION TO THIS MAY BE TO FEED INPUTS IN BATCHES AND NOT ALL INPUTS AT ONCE AND
 int main()
 {
     freopen("output.txt","w",stdout) ;
-    vector<int> layerdef {16,16,1} ;
+    vector<int> layerdef {10,10,1} ;
     MLP net {1,layerdef} ;
     auto params = net.parameters() ;
-    optimizer opt(0.00015) ;
+    optimizer opt(0.00005) ;
     loss_function fn("rmse") ;
 
-    int epochs {5000} ;
+    int epochs {10000} ;
     for(int epoch {0} ; epoch<epochs ; epoch++)
     {
         double epoch_loss = 0.0 ;
